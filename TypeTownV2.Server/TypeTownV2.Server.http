@@ -1,0 +1,11 @@
+@TypeTownV2.Server_HostAddress = http://localhost:5166
+
+GET {{TypeTownV2.Server_HostAddress}}/text/1
+Accept: application/json
+
+###
+
+GET {{TypeTownV2.Server_HostAddress}}/text/
+Accept: application/json
+
+###
