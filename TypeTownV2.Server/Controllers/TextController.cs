@@ -21,5 +21,10 @@ namespace TypeTownV2.Server.Controllers
             var text = _context.Levels.Find(id);
             return text;
         }
+        [HttpGet] 
+        public IEnumerable<Text> Get()
+        {
+            return _context.Levels.ToList();
+        }
     }
 }

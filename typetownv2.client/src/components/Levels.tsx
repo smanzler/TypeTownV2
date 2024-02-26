@@ -1,26 +1,35 @@
-import useLevel from "../hooks/useLevel";
 
 
-function Levels() {
-    const text = useLevel(1);
+interface Text {
+    id: number;
+    textContent: string;
+    difficulty: number;
+    name: string;
+}
+
+function Levels({ allLevels }: { allLevels: Text[] }) {
 
 
-    const contents = text === undefined
+    const contents = allLevels === undefined
         ? <p><em>Loading...</em></p>
         : <table className="table table-striped" aria-labelledby="tabelLabel">
             <thead>
                 <tr>
                     <th>Level</th>
-                    <th>Content</th>
+                    <th>Name</th>
                     <th>Difficulty</th>
-                </tr>
+                </tr>ds
             </thead>
             <tbody>
-                <tr key={text.id}>
-                    <td>{text.id}</td>
-                    <td>{text.textContent}</td>
-                    <td>{text.difficulty}</td>
-                </tr>
+                {allLevels.map(Level =>
+                    <tr key={Level.id}>
+                        <button>
+                            <td>{Level.id}</td>
+                            <td>{Level.name}</td>
+                            <td>{Level.difficulty}</td>
+                        </button>
+                    </tr>
+                )}
             </tbody>
         </table>;
 

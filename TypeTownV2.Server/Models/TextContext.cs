@@ -13,7 +13,7 @@ namespace TypeTown.Models
             base.OnModelCreating(modelBuilder);
 
             modelBuilder.Entity<Text>().HasData(
-                new Text { ID = 1, TextContent = "Penguins are a group of aquatic flightless birds from the family Spheniscidae of the order Sphenisciformes. They live almost exclusively in the Southern Hemisphere: only one species, the Galapagos penguin, is found north of the Equator.", Difficulty = 3 }
+                new Text { ID = 1, TextContent = "Penguins are a group of aquatic flightless birds from the family Spheniscidae of the order Sphenisciformes. They live almost exclusively in the Southern Hemisphere: only one species, the Galapagos penguin, is found north of the Equator.", Difficulty = 3, Name = "Penguin" }
             );
         }
     }
