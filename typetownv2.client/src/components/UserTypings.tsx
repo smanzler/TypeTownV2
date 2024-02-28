@@ -38,7 +38,7 @@ const Character = ({
 }: {
     actual: string;
     expected: string;
-    isActive: boolean;
+    index: number;
     length: number;
 }) => {
     const isCorrect = actual === expected;

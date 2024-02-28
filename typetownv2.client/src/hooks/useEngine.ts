@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from "react";
-import { countErrors, debug } from "../utils/helpers";
+import { debug } from "../utils/helpers";
 import useCounter from "./useCounter";
 import useTypings from "./useTypings";
 
@@ -18,7 +18,6 @@ const useEngine = (content: string) => {
         setWpm(Math.round(totalTyped * 12 / timeElapsed));
     }, [timeElapsed])
     
-    const [errors, setErrors] = useState(0);
 
     const isStarting = state === "start" && cursor > 0;
     const areWordsFinished = cursor === content?.length;
@@ -28,15 +27,8 @@ const useEngine = (content: string) => {
         resetCounter();
         resetTotalTyped();
         setState("start");
-        setErrors(0);
         clearTyped();
     }, [clearTyped, resetCounter, resetTotalTyped]);
-
-    const sumErrors = useCallback(() => {
-        debug(`cursor: ${cursor} - words.length: ${content.length}`);
-        const wordsReached = content.substring(0, Math.min(cursor, content.length));
-        setErrors((prevErrors) => prevErrors + countErrors(typed, wordsReached));
-    }, [typed, content, cursor]);
 
     // as soon the user starts typing the first letter, we start
     useEffect(() => {
@@ -56,15 +48,14 @@ const useEngine = (content: string) => {
     useEffect(() => {
         if (areWordsFinished) {
             debug("words are finished...");
-            sumErrors();
             clearTyped();
             stopCounter();
             setState("finish");
         }
-    }, [clearTyped, areWordsFinished, sumErrors, stopCounter]);
+    }, [clearTyped, areWordsFinished, stopCounter]);
     
     
-    return { state, content , typed, errors, restart, timeElapsed, totalTyped, wpm };
+    return { state, content , typed, restart, timeElapsed, wpm };
 };
 
 export default useEngine;
