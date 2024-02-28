@@ -19,15 +19,17 @@ const useCounter = () => {
         setTimeElapsed(0);
     }, []);
 
-    // when the countdown reaches 0, clear the countdown interval
-
+    const stopCounter = () => {
+        clearInterval(intervalRef.current!);
+        intervalRef.current = null;
+    };
 
     // clear interval when component unmounts
     useEffect(() => {
         return () => clearInterval(intervalRef.current!);
     }, []);
 
-    return { timeElapsed, startCounter, resetCounter };
+    return { timeElapsed, startCounter, resetCounter, stopCounter };
 };
 
 export default useCounter;

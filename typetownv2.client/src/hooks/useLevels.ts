@@ -7,19 +7,19 @@ interface Text {
     name: string;
 }
 
-const useLevel = ( ID: number) => {
-    const [text, setText] = useState<Text>();
+const useLevels = () => {
+    const [text, setText] = useState<Text[]>();
 
     useEffect(() => {
-        getLevel();
-    }, []);
+        getAllLevels();
+    }, []); 
 
-    async function getLevel() { 
-        const response = await fetch('text/' + ID);
+    async function getAllLevels() {
+        const response = await fetch('text');
         const data = await response.json();
         setText(data);
     }
     return text;
 }
 
-export default useLevel;
+export default useLevels;

@@ -18,7 +18,7 @@ function Levels({ allLevels }: { allLevels: Text[] }) {
                     <th>Level</th>
                     <th>Name</th>
                     <th>Difficulty</th>
-                </tr>ds
+                </tr>
             </thead>
             <tbody>
                 {allLevels.map(Level =>

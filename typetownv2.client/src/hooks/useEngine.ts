@@ -2,19 +2,22 @@ import { useCallback, useEffect, useState } from "react";
 import { countErrors, debug } from "../utils/helpers";
 import useCounter from "./useCounter";
 import useTypings from "./useTypings";
-/*import useWords from "./useWords";*/
 
 export type State = "start" | "run" | "finish";
 
 const useEngine = (content: string) => {
     const [state, setState] = useState<State>("start");
     const [wpm, setWpm] = useState(0);
-    const { timeElapsed, startCounter, resetCounter } =
+    const { timeElapsed, startCounter, resetCounter, stopCounter } =
         useCounter();
-    /*const { words, updateWords } = useWords();*/
     const { cursor, typed, clearTyped, totalTyped, resetTotalTyped } = useTypings(
         state !== "finish"
     );
+
+    useEffect(() => {
+        setWpm(Math.round(totalTyped * 12 / timeElapsed));
+    }, [timeElapsed])
+    
     const [errors, setErrors] = useState(0);
 
     const isStarting = state === "start" && cursor > 0;
@@ -39,9 +42,10 @@ const useEngine = (content: string) => {
     useEffect(() => {
         if (isStarting) {
             setState("run");
+            resetCounter();
             startCounter();
         }
-    }, [isStarting, startCounter]);
+    }, [isStarting, resetCounter, startCounter]);
 
     // when the time is up, we've finished
 
@@ -54,10 +58,10 @@ const useEngine = (content: string) => {
             debug("words are finished...");
             sumErrors();
             clearTyped();
-            resetCounter();
+            stopCounter();
             setState("finish");
         }
-    }, [clearTyped, areWordsFinished, sumErrors, resetCounter]);
+    }, [clearTyped, areWordsFinished, sumErrors, stopCounter]);
     
     
     return { state, content , typed, errors, restart, timeElapsed, totalTyped, wpm };

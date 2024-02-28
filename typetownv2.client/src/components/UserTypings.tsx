@@ -12,16 +12,20 @@ const UserTypings = ({
 }) => {
     const typedCharacters = userInput.split("");
 
+
+    const splitWords = words.split("");
+
     return (
         <div className={className}>
-            {typedCharacters.map((char, index) => (
+            {splitWords.map((char, index) => (
                 <Character
                     key={`${char}_${index}`}
-                    actual={char}
-                    expected={words[index]}
+                    actual={typedCharacters[index]}
+                    expected={char}
+                    index={index}
+                    length={typedCharacters.length}
                 />
             ))}
-            <Caret />
         </div>
     );
 };
@@ -29,24 +33,41 @@ const UserTypings = ({
 const Character = ({
     actual,
     expected,
+    index,
+    length,
 }: {
     actual: string;
     expected: string;
+    isActive: boolean;
+    length: number;
 }) => {
     const isCorrect = actual === expected;
     const isWhiteSpace = expected === " ";
 
     return (
-        <span
-            className={cn({
+        <span 
+            className={index >= length ? "" : cn({
                 "text-red-500": !isCorrect && !isWhiteSpace,
                 "text-primary-400": isCorrect && !isWhiteSpace,
                 "bg-red-500/50": !isCorrect && isWhiteSpace,
             })}
+            
         >
+            {index === length && <Caret />}
             {expected}
         </span>
     );
 };
+
+//<div className={className}>
+//    {splitWords.map((word) => (
+//        <div id="word" className="inline-block m-2">
+//            {word.split("").map((char, index) => (
+//                <span id="letter">{char}</span>
+//            ))}
+//        </div>
+//    ))}
+//</div>
+
 
 export default UserTypings;

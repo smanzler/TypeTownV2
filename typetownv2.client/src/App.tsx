@@ -1,11 +1,11 @@
 import React from "react";
-import GeneratedWords from "./components/GeneratedWords";
 import RestartButton from "./components/RestartButton";
 import Results from "./components/Results";
 import Levels from "./components/Levels";
 import UserTypings from "./components/UserTypings";
 import useEngine from "./hooks/useEngine";
 import useLevel from "./hooks/useLevel";
+import useLevels from "./hooks/useLevels";
 import { calculateAccuracyPercentage } from "./utils/helpers";
 
 const App = () => {
@@ -22,10 +22,8 @@ const App = () => {
             <CountdownTimer timeLeft={timeElapsed} />
             <WordsPerMin wpm={wpm} />
             <WordsContainer>
-                <GeneratedWords key={content} words={content} />
-                {/* User typed characters will be overlayed over the generated words */}
                 <UserTypings
-                    className="absolute inset-0 break-keep"
+                    className=" break-keep"
                     words={content}
                     userInput={typed}
                 />
@@ -39,9 +37,11 @@ const App = () => {
                 state={state}
                 errors={errors}
                 accuracyPercentage={calculateAccuracyPercentage(errors, totalTyped)}
-                total={totalTyped}
+                time={timeElapsed}
             />
-            <Levels/>
+            <Levels
+                allLevels={useLevels()}
+            />
         </>
     );
 };

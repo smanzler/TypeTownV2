@@ -6,13 +6,13 @@ const Results = ({
     state,
     errors,
     accuracyPercentage,
-    total,
+    time,
     className = "",
 }: {
     state: State;
     errors: number;
     accuracyPercentage: number;
-    total: number;
+    time: number;
     className?: string;
 }) => {
     if (state !== "finish") {
@@ -56,7 +56,7 @@ const Results = ({
                 animate={animate}
                 transition={{ duration: 0.3, delay: 1.4 }}
             >
-                Typed: {total}
+                Time: {time}
             </motion.li>
         </motion.ul>
     );
