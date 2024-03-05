@@ -1,17 +1,12 @@
 import { motion } from "framer-motion";
 import { State } from "../hooks/useEngine";
-import { formatPercentage } from "../utils/helpers";
 
 const Results = ({
     state,
-    errors,
-    accuracyPercentage,
     time,
     className = "",
 }: {
     state: State;
-    errors: number;
-    accuracyPercentage: number;
     time: number;
     className?: string;
 }) => {
@@ -39,22 +34,7 @@ const Results = ({
             <motion.li
                 initial={initial}
                 animate={animate}
-                transition={{ duration: 0.3, delay: 0.5 }}
-            >
-                Accuracy: {formatPercentage(accuracyPercentage)}
-            </motion.li>
-            <motion.li
-                initial={initial}
-                animate={animate}
-                transition={{ duration: 0.3, delay: 1 }}
-                className="text-red-500"
-            >
-                Errors: {errors}
-            </motion.li>
-            <motion.li
-                initial={initial}
-                animate={animate}
-                transition={{ duration: 0.3, delay: 1.4 }}
+                transition={{ duration: 0.3, delay: 0.7 }}
             >
                 Time: {time}
             </motion.li>

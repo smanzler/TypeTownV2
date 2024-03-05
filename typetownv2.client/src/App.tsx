@@ -4,16 +4,12 @@ import Results from "./components/Results";
 import Levels from "./components/Levels";
 import UserTypings from "./components/UserTypings";
 import useEngine from "./hooks/useEngine";
-import useLevel from "./hooks/useLevel";
 import useLevels from "./hooks/useLevels";
-import { calculateAccuracyPercentage } from "./utils/helpers";
 
 const App = () => {
-    const text = useLevel(1);
-    const textContent = text?.textContent === undefined ? " " : text?.textContent;
 
-    const { content, typed, timeElapsed, errors, state, restart, totalTyped, wpm } =
-        useEngine(textContent);
+    const { text, typed, timeElapsed, state, restart, wpm, setLevel } =
+        useEngine();
 
 
 
@@ -24,7 +20,7 @@ const App = () => {
             <WordsContainer>
                 <UserTypings
                     className=" break-keep"
-                    words={content}
+                    words={text}
                     userInput={typed}
                 />
             </WordsContainer>
@@ -35,11 +31,10 @@ const App = () => {
             <Results
                 className="mt-10"
                 state={state}
-                errors={errors}
-                accuracyPercentage={calculateAccuracyPercentage(errors, totalTyped)}
                 time={timeElapsed}
             />
             <Levels
+                onLevel={setLevel }
                 allLevels={useLevels()}
             />
         </>

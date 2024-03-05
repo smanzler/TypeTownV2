@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 
 interface Text {
     id: number;
@@ -7,19 +7,23 @@ interface Text {
     name: string;
 }
 
-const useLevel = ( ID: number) => {
-    const [text, setText] = useState<Text>();
+const useLevel = () => {
+    const [text, setText] = useState<string>('Please select a level below'); // Set initial state to an empty string
 
-    useEffect(() => {
-        getLevel();
-    }, []);
+    const getLevel = async (id: number) => {
+        try {
+            const response = await fetch('text/' + id);
+            if (!response.ok) {
+                throw new Error('Failed to fetch level data');
+            }
+            const data: Text = await response.json();
+            setText(data.textContent); // Set the state with the fetched text content
+        } catch (error) {
+            console.error('Error fetching level:', error);
+        }
+    };
 
-    async function getLevel() { 
-        const response = await fetch('text/' + ID);
-        const data = await response.json();
-        setText(data);
-    }
-    return text;
+    return { text, getLevel }; // Return text state and getLevel function
 }
 
 export default useLevel;

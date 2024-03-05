@@ -1,5 +1,3 @@
-
-
 interface Text {
     id: number;
     textContent: string;
@@ -7,7 +5,16 @@ interface Text {
     name: string;
 }
 
-function Levels({ allLevels }: { allLevels: Text[] }) {
+function Levels({
+    onLevel: fetchLevel,
+    allLevels,
+}: {
+        onLevel: (id: number) => void;
+    allLevels: Text[] | undefined;
+}) {
+    const handleClick = (id: number) => {
+        fetchLevel(id);
+    }
 
 
     const contents = allLevels === undefined
@@ -22,12 +29,10 @@ function Levels({ allLevels }: { allLevels: Text[] }) {
             </thead>
             <tbody>
                 {allLevels.map(Level =>
-                    <tr key={Level.id}>
-                        <button>
-                            <td>{Level.id}</td>
-                            <td>{Level.name}</td>
-                            <td>{Level.difficulty}</td>
-                        </button>
+                    <tr key={Level.id} onClick={() => handleClick(Level.id)}>
+                        <td>{Level.id}</td>
+                        <td>{Level.name}</td>
+                        <td>{Level.difficulty}</td>
                     </tr>
                 )}
             </tbody>
@@ -40,7 +45,7 @@ function Levels({ allLevels }: { allLevels: Text[] }) {
             {contents}
         </div>
     );
-    
+
 }
 
 export default Levels;
