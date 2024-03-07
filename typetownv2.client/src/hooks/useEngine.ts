@@ -12,7 +12,7 @@ const useEngine = () => {
 
     const { timeElapsed, startCounter, resetCounter, stopCounter } =
         useCounter();
-    const { cursor, typed, clearTyped, totalTyped, resetTotalTyped } = useTypings(
+    const { cursor, word, typed, clearTyped, totalTyped, resetTotalTyped } = useTypings(
         state !== "finish"
     );
 
@@ -49,14 +49,13 @@ const useEngine = () => {
 
     useEffect(() => {
         if (areWordsFinished) {
-            clearTyped();
             stopCounter();
             setState("finish");
         }
     }, [clearTyped, areWordsFinished, stopCounter]);
     
     
-    return { state, text , typed, restart, timeElapsed, wpm, setLevel };
+    return { state, text , typed, cursor, word, restart, timeElapsed, wpm, setLevel };
 };
 
 export default useEngine;

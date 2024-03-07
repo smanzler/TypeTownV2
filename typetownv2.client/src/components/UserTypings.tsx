@@ -3,28 +3,33 @@ import Caret from "./Caret";
 
 const UserTypings = ({
     userInput,
+    cursorIndex,
+    wordIndex,
     words,
     className = "",
 }: {
     userInput: string;
+    cursorIndex: number;
+    wordIndex: number;
     words: string;
     className?: string;
-}) => {
-    const typedCharacters = userInput.split("");
-
-
-    const splitWords = words.split("");
+    }) => {
+    const splitInput = userInput.split(" ");
+    const splitWords = words.split(" ");
 
     return (
         <div className={className}>
-            {splitWords.map((char, index) => (
-                <Character
-                    key={`${char}_${index}`}
-                    actual={typedCharacters[index]}
-                    expected={char}
-                    index={index}
-                    length={typedCharacters.length}
-                />
+            {splitWords.map((word, wIndex) => (
+                <div key={`${word}_${wIndex}`} id="word" className="inline-block m-2">
+                    {word.split("").map((char, index) => (
+                        <Character
+                            key={`${char}_${index}`}
+                            actual={splitInput && splitInput[wIndex] && splitInput[wIndex][index]}
+                            expected={char}
+                        />
+
+                    ))}
+                </div>
             ))}
         </div>
     );
@@ -33,41 +38,28 @@ const UserTypings = ({
 const Character = ({
     actual,
     expected,
-    index,
-    length,
 }: {
     actual: string;
     expected: string;
-    index: number;
-    length: number;
-}) => {
+    }) => {
+
+
+    const inputExists = !!actual;
     const isCorrect = actual === expected;
     const isWhiteSpace = expected === " ";
 
     return (
-        <span 
-            className={index >= length ? "" : cn({
-                "text-red-500": !isCorrect && !isWhiteSpace,
-                "text-primary-400": isCorrect && !isWhiteSpace,
+        <span
+            className={inputExists ? cn({
+                "text-red-600": !isCorrect && !isWhiteSpace,
+                "text-slate-100": isCorrect && !isWhiteSpace,
                 "bg-red-500/50": !isCorrect && isWhiteSpace,
-            })}
-            
+            }) : ""}
+
         >
-            {index === length && <Caret />}
-            {expected}
+            {actual || expected}
         </span>
     );
 };
-
-//<div className={className}>
-//    {splitWords.map((word) => (
-//        <div id="word" className="inline-block m-2">
-//            {word.split("").map((char, index) => (
-//                <span id="letter">{char}</span>
-//            ))}
-//        </div>
-//    ))}
-//</div>
-
 
 export default UserTypings;

@@ -19,20 +19,20 @@ function Levels({
 
     const contents = allLevels === undefined
         ? <p><em>Loading...</em></p>
-        : <table className="table table-striped" aria-labelledby="tabelLabel">
+        : <table className="table" aria-labelledby="tabelLabel">
             <thead>
                 <tr>
-                    <th>Level</th>
-                    <th>Name</th>
-                    <th>Difficulty</th>
+                    <th className="skinny">Level</th>
+                    <th className="wide">Name</th>
+                    <th className="skinny">Difficulty</th>
                 </tr>
             </thead>
             <tbody>
                 {allLevels.map(Level =>
-                    <tr key={Level.id} onClick={() => handleClick(Level.id)}>
-                        <td>{Level.id}</td>
-                        <td>{Level.name}</td>
-                        <td>{Level.difficulty}</td>
+                    <tr className="hover:bg-slate-700 hover:cursor-pointer bold" key={Level.id} onClick={() => handleClick(Level.id)}>
+                        <td className="skinny">{Level.id}</td>
+                        <td className="wide">{Level.name}</td>
+                        <td className="skinny">{Level.difficulty}</td>
                     </tr>
                 )}
             </tbody>
@@ -40,8 +40,7 @@ function Levels({
 
     return (
         <div>
-            <h1 id="tabelLabel">Text</h1>
-            <p>This component demonstrates fetching data from the server.</p>
+            <h1 id="tabelLabel">Levels:</h1>
             {contents}
         </div>
     );

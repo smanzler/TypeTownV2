@@ -1,15 +1,16 @@
 import { useCallback, useEffect, useRef, useState } from "react";
-import { isKeyboardCodeNotAllowed } from "../utils/helpers"
 
 const useTypings = (enabled: boolean) => {
     const [cursor, setCursor] = useState(0);
+    const [word, setWord] = useState(0);
     const [typed, setTyped] = useState<string>("");
     const totalTyped = useRef(0);
 
     const keydownHandler = useCallback(
-        ({ key, code }: KeyboardEvent) => {
-            if (!enabled || isKeyboardCodeNotAllowed(code)) {
-                console.log(code);
+        ({ key }: KeyboardEvent) => {
+            console.log("Key: " + key); 
+
+            if (!enabled || (key !== "Backspace" && key.length > 1)) {
                 return;
             }
             switch (key) {
@@ -18,18 +19,31 @@ const useTypings = (enabled: boolean) => {
                     setCursor((cursor) => Math.max(0, cursor - 1));
                     totalTyped.current = Math.max(0, totalTyped.current - 1);
                     break;
+                case " ":
+                    if (cursor > 0) {
+                        setTyped((prev) => prev.concat(key));
+                        setCursor((cursor) => cursor + 1);
+                        setWord((word) => word + 1)
+                        totalTyped.current += 1;
+                    }
+                    break;
                 default:
                     setTyped((prev) => prev.concat(key));
                     setCursor((cursor) => cursor + 1);
                     totalTyped.current += 1;
             }
         },
-        [enabled]
+        [cursor, enabled]
     );
+
+    useEffect(() => {
+        console.log(enabled);
+    }, [enabled])
 
     const clearTyped = useCallback(() => {
         setTyped("");
         setCursor(0);
+        setWord(0);
     }, []);
 
     const resetTotalTyped = useCallback(() => {
@@ -54,6 +68,7 @@ const useTypings = (enabled: boolean) => {
     return {
         typed,
         cursor,
+        word,
         clearTyped,
         resetTotalTyped,
         totalTyped: totalTyped.current,

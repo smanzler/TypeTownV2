@@ -2,8 +2,24 @@
 @tailwind components;
 @tailwind utilities;
 
+.skinny {
+    width: 10%;
+    text-align: center;
+}
+.wide {
+    width: 40%;
+    text-align: left;
+}
+
 @layer base {
     body {
-        @apply bg-slate-800 text-slate-50 min-h-screen grid place-items-center px-4 tracking-wider font-mono;
+        user-select: none;
+        font-family: 'droidmono', monospace;
+        @apply bg-black text-slate-500 min-h-screen grid place-items-center px-4 tracking-wider;
     }
+}
+
+@font-face {
+    font-family: 'droidmono'; /* Specify your font family name */
+    src: url('./Fonts/DroidSansMono.ttf') format('truetype'); /* Path to your TTF file */
 }
