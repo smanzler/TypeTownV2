@@ -8,8 +8,9 @@ interface Text {
 }
 
 const useLevel = () => {
-    const [text, setText] = useState<string>('Please select a level below'); // Set initial state to an empty string
+    const [text, setText] = useState<string>('Please select a level below'); // set initial text when no level is selected yet
 
+    // fetches the content based on the id
     const getLevel = async (id: number) => {
         try {
             const response = await fetch('text/' + id);
@@ -17,13 +18,13 @@ const useLevel = () => {
                 throw new Error('Failed to fetch level data');
             }
             const data: Text = await response.json();
-            setText(data.textContent); // Set the state with the fetched text content
+            setText(data.textContent);
         } catch (error) {
             console.error('Error fetching level:', error);
         }
     };
 
-    return { text, getLevel }; // Return text state and getLevel function
+    return { text, getLevel };
 }
 
 export default useLevel;

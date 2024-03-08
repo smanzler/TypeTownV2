@@ -8,7 +8,7 @@ import useLevels from "./hooks/useLevels";
 
 const App = () => {
 
-    const { text, typed, cursor, word, timeElapsed, state, restart, wpm, setLevel } =
+    const { text, typed, timeElapsed, state, restart, wpm, setLevel } =
         useEngine();
 
     return (
@@ -18,8 +18,6 @@ const App = () => {
             <WordsContainer>
                 <UserTypings
                     className=" break-keep"
-                    wordIndex={word}
-                    cursorIndex={cursor}
                     words={text}
                     userInput={typed}
                 />
