@@ -32,6 +32,10 @@ namespace TypeTownV2.Server.Migrations
                     b.Property<int>("Difficulty")
                         .HasColumnType("int");
 
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("TextContent")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -45,6 +49,7 @@ namespace TypeTownV2.Server.Migrations
                         {
                             ID = 1,
                             Difficulty = 3,
+                            Name = "Penguin",
                             TextContent = "Penguins are a group of aquatic flightless birds from the family Spheniscidae of the order Sphenisciformes. They live almost exclusively in the Southern Hemisphere: only one species, the Galapagos penguin, is found north of the Equator."
                         });
                 });

@@ -17,7 +17,8 @@ namespace TypeTownV2.Server.Migrations
                     ID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     TextContent = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Difficulty = table.Column<int>(type: "int", nullable: false)
+                    Difficulty = table.Column<int>(type: "int", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -26,8 +27,8 @@ namespace TypeTownV2.Server.Migrations
 
             migrationBuilder.InsertData(
                 table: "Levels",
-                columns: new[] { "ID", "Difficulty", "TextContent" },
-                values: new object[] { 1, 3, "Penguins are a group of aquatic flightless birds from the family Spheniscidae of the order Sphenisciformes. They live almost exclusively in the Southern Hemisphere: only one species, the Galapagos penguin, is found north of the Equator." });
+                columns: new[] { "ID", "Difficulty", "Name", "TextContent" },
+                values: new object[] { 1, 3, "Penguin", "Penguins are a group of aquatic flightless birds from the family Spheniscidae of the order Sphenisciformes. They live almost exclusively in the Southern Hemisphere: only one species, the Galapagos penguin, is found north of the Equator." });
         }
 
         /// <inheritdoc />
