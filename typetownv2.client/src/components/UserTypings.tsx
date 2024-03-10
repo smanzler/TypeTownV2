@@ -1,4 +1,3 @@
-import React from "react";
 import Caret from "../components/Caret"
 import cn from "classnames";
 
@@ -21,17 +20,26 @@ const UserTypings = ({
     return (
         <div className={className}>
             {splitWords.map((word, wIndex) => (
-                <React.Fragment key={`${word}_${wIndex}`}>
-                    <div id="word" className="inline-block m-2">
-                        {word.split("").map((char, index) => (
-                            <Character
-                                key={`${char}_${index}`}
-                                actual={splitInput[wIndex]?.[index]}
-                                expected={char}
+                <div key={`${word}_${wIndex}`} id="word" className="inline-block m-2 relative">
+                    {currentWordIndex === wIndex && <Caret position={currentWordLength} />}
+                    {word.split("").map((char, cIndex) => (
+                        <Character
+                            key={`${char}_${cIndex}`}
+                            actual={splitInput[wIndex]?.[cIndex]}
+                            expected={char}
+                        />
+                    ))}
+                    {(splitInput[wIndex] ?? "")
+                        .substring(splitWords[wIndex].length)
+                        .split("")
+                        .map((char, index) => (
+                            <ExtraCharacter
+                                index={index}
+                                char={char}
                             />
                         ))}
-                    </div>
-                </React.Fragment>
+
+                </div>
             ))}
         </div>
     );
@@ -42,7 +50,7 @@ const Character = ({
     expected,
 }: {
     actual: string | undefined;
-    expected: string;
+        expected: string;
 }) => {
     const inputExists = !!actual;
     const isCorrect = actual === expected;
@@ -60,5 +68,23 @@ const Character = ({
         </span>
     );
 };
+
+const ExtraCharacter = ({
+    char,
+    index,
+}: {
+    char: string;
+        index: number;
+    }) => {
+    return (
+        <span
+            className="text-red-900"
+            key={`extra_${index}`}
+            id="letter"
+        >
+            {char}
+        </span>
+    )
+}
 
 export default UserTypings;
