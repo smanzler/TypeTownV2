@@ -17,7 +17,7 @@ const App = () => {
             <WordsPerMin wpm={wpm} />
             <WordsContainer>
                 <UserTypings
-                    className=" break-keep"
+                    className=""
                     words={text}
                     userInput={typed}
                 />
@@ -41,7 +41,7 @@ const App = () => {
 
 const WordsContainer = ({ children }: { children: React.ReactNode }) => {
     return (
-        <div className="relative text-3xl max-w-xl leading-relaxed break-all mt-3">
+        <div id="words" className="relative text-2xl max-w-2xl mt-3">
             {children}
         </div>
     );

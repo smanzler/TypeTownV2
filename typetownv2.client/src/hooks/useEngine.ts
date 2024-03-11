@@ -14,7 +14,7 @@ const useEngine = () => {
     const { timeElapsed, startCounter, resetCounter, stopCounter } =
         useCounter();
     const { cursor, typed, clearTyped, totalTyped, resetTotalTyped } = useTypings(
-        state !== "finish"
+        state !== "finish", text.split(" ").length
     );
 
     // sets words per minute, only updated every second

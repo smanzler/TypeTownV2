@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 
-const useTypings = (enabled: boolean) => {
+const useTypings = (enabled: boolean, wordCount: number) => {
     const [cursor, setCursor] = useState(0);
     const [cursorLocation, setCursorLocation] = useState(0);
     const [typed, setTyped] = useState<string>("");
@@ -24,7 +24,7 @@ const useTypings = (enabled: boolean) => {
                     break;
                 case " ":
                     // checks if the last typed letter was a space
-                    if (!typed.length || typed[typed.length - 1] === " ") {
+                    if (!typed.length || typed[typed.length - 1] === " " || typed.split(" ").length === wordCount) {
                         break;
                     }
                     // jumps to the next word

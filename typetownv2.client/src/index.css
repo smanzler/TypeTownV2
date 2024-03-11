@@ -15,7 +15,7 @@
     body {
         user-select: none;
         font-family: 'droidmono', monospace;
-        @apply bg-black text-slate-500 min-h-screen grid place-items-center px-4 tracking-wider;
+        @apply flex justify-center bg-black text-slate-500 px-4 tracking-wider mt-4 mx-auto;
     }
 }
 

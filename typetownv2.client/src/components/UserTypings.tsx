@@ -24,7 +24,7 @@ const UserTypings = ({
                     {currentWordIndex === wIndex && <Caret position={currentWordLength} />}
                     {word.split("").map((char, cIndex) => (
                         <Character
-                            key={`${char}_${cIndex}`}
+                            key={`${wIndex}_${cIndex}`}
                             actual={splitInput[wIndex]?.[cIndex]}
                             expected={char}
                         />
@@ -34,6 +34,7 @@ const UserTypings = ({
                         .split("")
                         .map((char, index) => (
                             <ExtraCharacter
+                                key={`${wIndex}_${index}`}
                                 index={index}
                                 char={char}
                             />
